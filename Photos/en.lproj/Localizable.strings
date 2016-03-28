@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  Photos
+
+  Created by Alexander on 28.03.16.
+  Copyright © 2016 Alexander Grebenschikov. All rights reserved.
+*/
+
+AlbumsTitle = "Albums";
+NoAccess = "App does not have access to photos";
+AllPhotos = "All Photos";
+ViewerTitle = "%d of %d";

@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  Photos
+
+  Created by Alexander on 28.03.16.
+  Copyright © 2016 Alexander Grebenschikov. All rights reserved.
+*/
+
+AlbumsTitle = "Альбомы";
+NoAccess = "Приложение не имеет доступа к фотографиям";
+AllPhotos = "Все фотографии";
+ViewerTitle = "%d из %d";
