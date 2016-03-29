@@ -26,7 +26,7 @@ static NSString * const PhotoCellIdenitifier = @"photoCell";
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    CGFloat previewSize = CGRectGetWidth(self.view.frame) / 4;
+    CGFloat previewSize = MIN(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) / 4;
     flowLayout.itemSize = CGSizeMake(previewSize, previewSize);
     flowLayout.minimumLineSpacing = 0;
     flowLayout.minimumInteritemSpacing = 0;
