@@ -14,7 +14,7 @@
     [super loadView];
     
     AssetImageView *imageView = [[AssetImageView alloc] initWithFrame:self.view.frame];
-    [imageView loadFromAsset:self.asset withSize:self.view.frame.size];
+    [imageView loadFromAsset:self.asset withSize:self.view.frame.size square:NO];
     self.view = imageView;
 }
 

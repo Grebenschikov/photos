@@ -14,7 +14,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
-        AssetImageView *imageView = [[AssetImageView alloc] initWithFrame:CGRectMake(5, 5, 70, 70)];
+        CGFloat previewWidth = CGRectGetWidth(self.frame) - 2;
+        AssetImageView *imageView = [[AssetImageView alloc] initWithFrame:CGRectMake(1, 1, previewWidth, previewWidth)];
         [self addSubview:imageView];
         self.imageView = imageView;
     }

@@ -11,6 +11,6 @@
 
 @interface AssetImageView : UIImageView
 
-- (void)loadFromAsset:(PHAsset *)asset withSize:(CGSize) size;
+- (void)loadFromAsset:(PHAsset *)asset withSize:(CGSize)size square:(BOOL)square;
 
 @end

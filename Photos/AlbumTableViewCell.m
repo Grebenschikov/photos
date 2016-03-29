@@ -52,9 +52,9 @@
 
 - (void)setRow:(AlbumRow *)row {
     self.albumTitleLabel.text = row.title;
-    self.photosCountLabel.text = [NSString stringWithFormat:@"%d", row.photosCount];
+    self.photosCountLabel.text = [NSString stringWithFormat:@"%ld", (long)row.photosCount];
     
-    [self.albumPreviewImageView loadFromAsset:row.previewAsset withSize:self.albumPreviewImageView.frame.size];
+    [self.albumPreviewImageView loadFromAsset:row.previewAsset withSize:self.albumPreviewImageView.frame.size square:YES];
 }
 
 @end

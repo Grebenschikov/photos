@@ -26,7 +26,8 @@ static NSString * const PhotoCellIdenitifier = @"photoCell";
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@" " style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.itemSize = CGSizeMake(80, 80);
+    CGFloat previewSize = CGRectGetWidth(self.view.frame) / 4;
+    flowLayout.itemSize = CGSizeMake(previewSize, previewSize);
     flowLayout.minimumLineSpacing = 0;
     flowLayout.minimumInteritemSpacing = 0;
     flowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -55,7 +56,7 @@ static NSString * const PhotoCellIdenitifier = @"photoCell";
 }
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(PhotoCollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
-    [cell.imageView loadFromAsset:[self.album.photos objectAtIndex:indexPath.row] withSize:CGSizeMake(80, 80)];
+    [cell.imageView loadFromAsset:[self.album.photos objectAtIndex:indexPath.row] withSize:CGSizeMake(80, 80) square:YES];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {

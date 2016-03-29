@@ -11,6 +11,8 @@
 
 @interface ViewerViewController () <UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 
+@property (nonatomic) BOOL navigationHiden;
+
 @end
 
 @implementation ViewerViewController
@@ -36,7 +38,15 @@
 }
 
 - (void)tapAction {
-    [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden animated:YES];
+    self.navigationHiden = !self.navigationController.navigationBarHidden;
+    [self.navigationController setNavigationBarHidden:self.navigationHiden animated:YES];
+    [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
+        [self setNeedsStatusBarAppearanceUpdate];
+    }];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return self.navigationHiden;
 }
 
 - (void)writeTitleIndex:(NSInteger)index {
