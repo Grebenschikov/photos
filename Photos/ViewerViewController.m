@@ -42,11 +42,12 @@
     [self.navigationController setNavigationBarHidden:self.navigationHiden animated:YES];
     [UIView animateWithDuration:UINavigationControllerHideShowBarDuration animations:^{
         [self setNeedsStatusBarAppearanceUpdate];
+        self.view.backgroundColor = self.navigationHiden ? [UIColor blackColor] : [UIColor whiteColor];
     }];
 }
 
 - (BOOL)prefersStatusBarHidden {
-    return self.navigationHiden;
+    return [UIApplication sharedApplication].statusBarOrientation != UIDeviceOrientationPortrait || self.navigationHiden;
 }
 
 - (void)writeTitleIndex:(NSInteger)index {
