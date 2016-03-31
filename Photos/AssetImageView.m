@@ -32,8 +32,15 @@
         return;
     }
     
-    __weak AssetImageView *weakSelf = self;
+    if (square) {
+        UIImage *image = [[AssetImageView cacher] objectForKey:asset];
+        if (image) {
+            self.image = image;
+            return;
+        }
+    }
     
+    __weak AssetImageView *weakSelf = self;
     CGFloat scale = [UIScreen mainScreen].scale;
     CGSize realSize = CGSizeApplyAffineTransform(size, CGAffineTransformMakeScale(scale, scale));
     
@@ -51,8 +58,22 @@
             return;
         }
         
+        if (square) {
+            [[AssetImageView cacher] setObject:result forKey:asset];
+        }
+        
         weakSelf.image = result;
     }];
+}
+
++ (NSCache *)cacher {
+    static NSCache *cacher;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        cacher = [[NSCache alloc] init];
+        [cacher setCountLimit:5000];
+    });
+    return cacher;
 }
 
 @end
