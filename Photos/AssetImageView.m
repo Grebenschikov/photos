@@ -31,38 +31,36 @@
         self.image = [UIImage imageNamed:@"EmptyAlbum"];
         return;
     }
-    
-    if (square) {
-        UIImage *image = [[AssetImageView cacher] objectForKey:asset];
-        if (image) {
-            self.image = image;
-            return;
-        }
+
+    NSString *cacheKey = [NSString stringWithFormat:@"%@_%f_%f", asset.localIdentifier, size.height, size.width];
+    UIImage *image = [[AssetImageView cacher] objectForKey:cacheKey];
+    if (image) {
+        self.image = image;
+        return;
     }
-    
-    CGFloat scale = [UIScreen mainScreen].scale;
-    CGSize realSize = CGSizeApplyAffineTransform(size, CGAffineTransformMakeScale(scale, scale));
-    
+        
     PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
     if (square) {
+        options.synchronous = YES;
         options.resizeMode = PHImageRequestOptionsResizeModeExact;
         CGFloat minSide = MIN(asset.pixelWidth, asset.pixelHeight);
         CGFloat width = minSide / asset.pixelWidth;
         CGFloat height = minSide / asset.pixelHeight;
         options.normalizedCropRect = CGRectMake((1 - width) / 2, (1 - height) / 2, width, height);
+    } else {
+        CGFloat scale = [UIScreen mainScreen].scale ;
+        size = CGSizeApplyAffineTransform(size, CGAffineTransformMakeScale(scale, scale));
     }
-    
+
     __weak AssetImageView *weakSelf = self;
-    self.request = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:realSize contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-        if (!result || !weakSelf) {
-            return;
+    self.request = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:size contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+        if (result && square) {
+            [[AssetImageView cacher] setObject:result forKey:cacheKey];
         }
         
-        if (square) {
-            [[AssetImageView cacher] setObject:result forKey:asset];
+        if (weakSelf) {
+            weakSelf.image = result;
         }
-        
-        weakSelf.image = result;
     }];
 }
 
