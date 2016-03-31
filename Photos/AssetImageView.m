@@ -40,7 +40,6 @@
         }
     }
     
-    __weak AssetImageView *weakSelf = self;
     CGFloat scale = [UIScreen mainScreen].scale;
     CGSize realSize = CGSizeApplyAffineTransform(size, CGAffineTransformMakeScale(scale, scale));
     
@@ -53,6 +52,7 @@
         options.normalizedCropRect = CGRectMake((1 - width) / 2, (1 - height) / 2, width, height);
     }
     
+    __weak AssetImageView *weakSelf = self;
     self.request = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:realSize contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
         if (!result || !weakSelf) {
             return;
@@ -73,6 +73,7 @@
         cacher = [[NSCache alloc] init];
         [cacher setCountLimit:5000];
     });
+    
     return cacher;
 }
 
